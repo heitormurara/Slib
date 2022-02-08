@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -228,6 +228,9 @@
 				Base,
 			);
 			mainGroup = F5D3AA2827B2C56300E670CE;
+			packageReferences = (
+				F5D3AA6627B2DC6100E670CE /* XCRemoteSwiftPackageReference "R" */,
+			);
 			productRefGroup = F5D3AA3227B2C56300E670CE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -597,6 +600,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F5D3AA6627B2DC6100E670CE /* XCRemoteSwiftPackageReference "R" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = F5D3AA2927B2C56300E670CE /* Project object */;
 }
