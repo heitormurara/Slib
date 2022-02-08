@@ -105,12 +105,22 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.color` struct is generated, and contains static references to 2 colors.
+  /// This `R.color` struct is generated, and contains static references to 7 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
-    /// Color `backgroundColor`.
-    static let backgroundColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "backgroundColor")
+    /// Color `backgroundSystem`.
+    static let backgroundSystem = Rswift.ColorResource(bundle: R.hostingBundle, name: "backgroundSystem")
+    /// Color `clear`.
+    static let clear = Rswift.ColorResource(bundle: R.hostingBundle, name: "clear")
+    /// Color `disabled`.
+    static let disabled = Rswift.ColorResource(bundle: R.hostingBundle, name: "disabled")
+    /// Color `highlight`.
+    static let highlight = Rswift.ColorResource(bundle: R.hostingBundle, name: "highlight")
+    /// Color `primaryText`.
+    static let primaryText = Rswift.ColorResource(bundle: R.hostingBundle, name: "primaryText")
+    /// Color `secondaryText`.
+    static let secondaryText = Rswift.ColorResource(bundle: R.hostingBundle, name: "secondaryText")
 
     #if os(iOS) || os(tvOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
@@ -122,11 +132,56 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIColor(named: "backgroundColor", bundle: ..., traitCollection: ...)`
+    /// `UIColor(named: "backgroundSystem", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
-    static func backgroundColor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
-      return UIKit.UIColor(resource: R.color.backgroundColor, compatibleWith: traitCollection)
+    static func backgroundSystem(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.backgroundSystem, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "clear", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func clear(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.clear, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "disabled", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func disabled(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.disabled, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "highlight", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func highlight(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.highlight, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "primaryText", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func primaryText(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.primaryText, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "secondaryText", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func secondaryText(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.secondaryText, compatibleWith: traitCollection)
     }
     #endif
 
@@ -139,10 +194,50 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(watchOS)
-    /// `UIColor(named: "backgroundColor", bundle: ..., traitCollection: ...)`
+    /// `UIColor(named: "backgroundSystem", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
-    static func backgroundColor(_: Void = ()) -> UIKit.UIColor? {
-      return UIKit.UIColor(named: R.color.backgroundColor.name)
+    static func backgroundSystem(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.backgroundSystem.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "clear", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func clear(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.clear.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "disabled", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func disabled(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.disabled.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "highlight", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func highlight(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.highlight.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "primaryText", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func primaryText(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.primaryText.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "secondaryText", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func secondaryText(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.secondaryText.name)
     }
     #endif
 
