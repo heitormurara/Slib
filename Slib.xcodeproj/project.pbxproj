@@ -14,6 +14,7 @@
 		F5D3AA4127B2C56500E670CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5D3AA3F27B2C56500E670CE /* LaunchScreen.storyboard */; };
 		F5D3AA4C27B2C56500E670CE /* SlibTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D3AA4B27B2C56500E670CE /* SlibTests.swift */; };
 		F5D3AA5727B2C56500E670CE /* SlibUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D3AA5627B2C56500E670CE /* SlibUITests.swift */; };
+		F5D3AA6927B2DDA200E670CE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F5D3AA6827B2DDA200E670CE /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D3AA6927B2DDA200E670CE /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +159,9 @@
 			dependencies = (
 			);
 			name = Slib;
+			packageProductDependencies = (
+				F5D3AA6827B2DDA200E670CE /* SnapKit */,
+			);
 			productName = Slib;
 			productReference = F5D3AA3127B2C56300E670CE /* Slib.app */;
 			productType = "com.apple.product-type.application";
@@ -230,6 +235,7 @@
 			mainGroup = F5D3AA2827B2C56300E670CE;
 			packageReferences = (
 				F5D3AA6627B2DC6100E670CE /* XCRemoteSwiftPackageReference "R" */,
+				F5D3AA6727B2DDA200E670CE /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = F5D3AA3227B2C56300E670CE /* Products */;
 			projectDirPath = "";
@@ -610,7 +616,23 @@
 				minimumVersion = 6.1.0;
 			};
 		};
+		F5D3AA6727B2DDA200E670CE /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F5D3AA6827B2DDA200E670CE /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5D3AA6727B2DDA200E670CE /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F5D3AA2927B2C56300E670CE /* Project object */;
 }
