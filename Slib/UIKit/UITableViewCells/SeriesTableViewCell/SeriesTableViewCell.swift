@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class SerieTableViewCell: UITableViewCell {
+final class SeriesTableViewCell: UITableViewCell {
     
     private let bannerImageView = UIImageView()
     
