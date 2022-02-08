@@ -1,0 +1,1 @@
+typealias Parameters = [String: Any]
