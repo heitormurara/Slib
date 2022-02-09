@@ -3,17 +3,39 @@ import UIKit
 protocol SeriesListViewControllerProtocol: AnyObject {
     
     func reloadTableView()
+    func displayActivityIndicator(_ isDisplayed: Bool)
 }
 
 final class SeriesListViewController: UIViewController {
     
+    private struct Constants {
+        
+        static let activityIndicatorViewHeight: CGFloat = 44
+    }
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SeriesTableViewCell.self,
                            forCellReuseIdentifier: SeriesTableViewCell.reuseIdentifier)
         tableView.backgroundColor = Colors.clear
         return tableView
+    }()
+    
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.color = Colors.primaryText
+        activityIndicatorView.frame = CGRect(x: .zero,
+                                             y: .zero,
+                                             width: view.bounds.width,
+                                             height: Constants.activityIndicatorViewHeight)
+        
+        tableView.tableFooterView = activityIndicatorView
+        tableView.tableFooterView?.isHidden = false
+        
+        return activityIndicatorView
     }()
     
     var presenter: SeriesListPresenterProtocol?
@@ -52,11 +74,33 @@ final class SeriesListViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+extension SeriesListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        let lastRowIndex = tableView.numberOfRows(inSection: .zero) - 1
+        if indexPath.row == lastRowIndex {
+            presenter?.viewDidReachScrollLimit()
+        }
+    }
+}
+
 // MARK: - SeriesListViewControllerProtocol
 extension SeriesListViewController: SeriesListViewControllerProtocol {
     
     func reloadTableView() {
         tableView.reloadData()
+    }
+    
+    func displayActivityIndicator(_ isDisplayed: Bool) {
+        switch isDisplayed {
+        case true:
+            tableView.tableFooterView = activityIndicatorView
+        case false:
+            tableView.tableFooterView = nil
+        }
     }
 }
 

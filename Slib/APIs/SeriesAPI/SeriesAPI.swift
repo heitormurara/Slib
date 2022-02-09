@@ -3,7 +3,8 @@ typealias SeriesListCompletion = (SeriesListResult) -> Void
 
 protocol SeriesAPIProtocol: AnyObject {
     
-    func getSeries(_ completion: @escaping SeriesListCompletion)
+    func getSeries(page: Int,
+                   _ completion: @escaping SeriesListCompletion)
 }
 
 final class SeriesAPI: BaseAPI<NetworkService<SeriesEndpoint>> {
@@ -16,7 +17,10 @@ final class SeriesAPI: BaseAPI<NetworkService<SeriesEndpoint>> {
 // MARK: - SeriesAPIProtocol
 extension SeriesAPI: SeriesAPIProtocol {
     
-    func getSeries(_ completion: @escaping SeriesListCompletion) {
-        request(.get, [Series].self, completion: completion)
+    func getSeries(page: Int = .zero,
+                   _ completion: @escaping SeriesListCompletion) {
+        request(.get(page: page),
+                [Series].self,
+                completion: completion)
     }
 }

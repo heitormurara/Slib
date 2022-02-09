@@ -2,7 +2,7 @@ import Foundation
 
 enum SeriesEndpoint {
     
-    case get
+    case get(page: Int)
 }
 
 // MARK: - Endpoint
@@ -25,10 +25,16 @@ extension SeriesEndpoint: EndpointProtocol {
     }
     
     var parameters: Parameters? {
-        .none
+        switch self {
+        case let .get(page):
+            return ["page": page]
+        }
     }
     
     var encoder: ParameterEncoder? {
-        .none
+        switch self {
+        case .get:
+            return URLParameterEncoder()
+        }
     }
 }

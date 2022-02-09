@@ -4,6 +4,7 @@ protocol SeriesListPresenterProtocol: AnyObject {
     
     var tableViewDataSource: [SeriesTableViewCellModel] { get }
     func viewDidLoad()
+    func viewDidReachScrollLimit()
 }
 
 protocol SeriesListPresenterDelegate: AnyObject {
@@ -25,6 +26,9 @@ final class SeriesListPresenter {
         }
     }
     
+    private var currentPage: Int = .zero
+    private var isLoadingSeries = false
+    
     init(viewController: SeriesListViewControllerProtocol,
          seriesAPI: SeriesAPIProtocol = SeriesAPI()) {
         self.viewController = viewController
@@ -32,12 +36,29 @@ final class SeriesListPresenter {
     }
     
     private func loadSeries() {
-        seriesAPI.getSeries { seriesListResult in
+        guard !isLoadingSeries else { return }
+        isLoadingSeries = true
+        DispatchQueue.main.async { [weak self] in
+            self?.viewController.displayActivityIndicator(true)
+        }
+        
+        seriesAPI.getSeries(page: currentPage) { [weak self] seriesListResult in
+            guard let self = self else { return }
+            self.isLoadingSeries = false
+            DispatchQueue.main.async {
+                self.viewController.displayActivityIndicator(false)
+            }
+            
             switch seriesListResult {
-            case let .success(seriesList):
-                self.seriesList = seriesList
+            case let .success(newSeriesList):
+                self.seriesList.append(contentsOf: newSeriesList)
+                self.currentPage += 1
+                
+                DispatchQueue.main.async {
+                    self.viewController.reloadTableView()
+                }
             case .failure:
-                print("error")
+                break
             }
         }
     }
@@ -55,6 +76,10 @@ extension SeriesListPresenter: SeriesListPresenterProtocol {
     }
     
     func viewDidLoad() {
+        loadSeries()
+    }
+    
+    func viewDidReachScrollLimit() {
         loadSeries()
     }
 }
