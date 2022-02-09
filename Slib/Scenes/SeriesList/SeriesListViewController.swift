@@ -12,6 +12,7 @@ final class SeriesListViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(SeriesTableViewCell.self,
                            forCellReuseIdentifier: SeriesTableViewCell.reuseIdentifier)
+        tableView.backgroundColor = Colors.clear
         return tableView
     }()
     
