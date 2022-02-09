@@ -34,8 +34,10 @@ final class SeriesListViewController: UIViewController {
         
         tableView.snp.makeConstraints {
             $0.leading.equalToSuperview()
+                .offset(Spacings.m)
             $0.top.equalToSuperview()
             $0.trailing.equalToSuperview()
+                .offset(Spacings.m)
             $0.bottom.equalToSuperview()
         }
     }

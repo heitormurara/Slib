@@ -48,7 +48,7 @@ extension SeriesListPresenter: SeriesListPresenterProtocol {
     
     var tableViewDataSource: [SeriesTableViewCellModel] {
         seriesList.compactMap {
-            SeriesTableViewCellModel(bannerImageURL: "",
+            SeriesTableViewCellModel(bannerImageURL: $0.image.originalSizeURL,
                                      title: $0.name,
                                      genres: $0.genres)
         }

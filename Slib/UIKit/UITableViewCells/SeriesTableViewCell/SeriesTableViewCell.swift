@@ -1,7 +1,14 @@
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class SeriesTableViewCell: UITableViewCell {
+    
+    private struct Constants {
+        
+        static let bannerImageHeight: CGFloat = 295 / 2
+        static let bannerImageWidth: CGFloat = 210 / 2
+    }
     
     private let bannerImageView = UIImageView()
     
@@ -21,7 +28,9 @@ final class SeriesTableViewCell: UITableViewCell {
     }
     
     func set(_ model: SeriesTableViewCellModel) {
+        bannerImageView.kf.setImage(with: model.bannerImageURL)
         titleLabel.text = model.title
+        genresLabel.text = model.genres.joined(separator: ", ")
     }
     
     private func setUpStyle() {
@@ -36,15 +45,27 @@ final class SeriesTableViewCell: UITableViewCell {
         bannerImageView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.top.equalToSuperview()
+                .offset(Spacings.m)
             $0.bottom.equalToSuperview()
+                .offset(-Spacings.m)
+            $0.height.equalTo(Constants.bannerImageHeight)
+            $0.width.equalTo(Constants.bannerImageWidth)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(bannerImageView)
+            $0.leading.equalTo(bannerImageView.snp_trailingMargin)
                 .offset(Spacings.m)
             $0.centerY.equalTo(bannerImageView)
             $0.trailing.equalToSuperview()
                 .offset(Spacings.m)
+        }
+        
+        genresLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel)
+            $0.trailing.equalTo(titleLabel)
+            $0.top.equalTo(titleLabel.snp_bottomMargin)
+                .offset(Spacings.s)
+            $0.bottom.equalToSuperview()
         }
     }
 }
