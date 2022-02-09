@@ -21,7 +21,7 @@ extension ViewStyle where T: UILabel {
     static var secondaryText: ViewStyle<UILabel> {
         ViewStyle<UILabel> {
             $0.font = UIFont.systemFont(ofSize: 16,
-                                        weight: .thin)
+                                        weight: .regular)
             $0.textColor = Colors.secondaryText
         }
     }

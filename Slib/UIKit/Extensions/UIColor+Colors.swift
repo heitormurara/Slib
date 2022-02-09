@@ -6,7 +6,7 @@ extension UIColor {
     
     struct Colors {
         
-        static let backgroundSystem = UIColor(named: "backgroundColor")
+        static let backgroundSystem = UIColor(named: "backgroundSystem")
         static let clear = UIColor(named: "clear")
         static let disabled = UIColor(named: "disabled")
         static let highlight = UIColor(named: "highlight")

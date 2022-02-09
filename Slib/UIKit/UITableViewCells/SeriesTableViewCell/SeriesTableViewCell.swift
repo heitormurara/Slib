@@ -10,7 +10,7 @@ final class SeriesTableViewCell: UITableViewCell {
         static let bannerImageWidth: CGFloat = 210 / 2
     }
     
-    private let bannerImageView = UIImageView()
+    private let bannerImageView = UIImageView(style: .rounded)
     
     private let titleLabel = UILabel(style: .title)
     
@@ -47,7 +47,6 @@ final class SeriesTableViewCell: UITableViewCell {
             $0.top.equalToSuperview()
                 .offset(Spacings.m)
             $0.bottom.equalToSuperview()
-                .offset(-Spacings.m)
             $0.height.equalTo(Constants.bannerImageHeight)
             $0.width.equalTo(Constants.bannerImageWidth)
         }
