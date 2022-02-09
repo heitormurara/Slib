@@ -4,7 +4,7 @@ struct URLParameterEncoder: ParameterEncoder {
     
     func encode(_ urlRequest: URLRequest,
                 with parameters: Parameters) throws -> URLRequest {
-        guard let url = urlRequest.url else { throw NetworkError.missingURL }
+        guard let url = urlRequest.url else { throw ParameterEncoderError.missingURL }
         var urlRequest = urlRequest
         
         if var urlComponents = URLComponents(url: url,

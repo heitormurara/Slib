@@ -1,4 +1,4 @@
-enum NetworkError: Error {
+enum ParameterEncoderError: Error {
     
     case missingURL
     case encodingFailed

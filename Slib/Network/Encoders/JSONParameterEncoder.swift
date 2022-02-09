@@ -16,7 +16,7 @@ struct JSONParameterEncoder: ParameterEncoder {
                                     forHTTPHeaderField: "Content-Type")
             }
         } catch {
-            throw NetworkError.encodingFailed
+            throw ParameterEncoderError.encodingFailed
         }
         
         return urlRequest

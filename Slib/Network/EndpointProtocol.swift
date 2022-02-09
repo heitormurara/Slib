@@ -42,14 +42,14 @@ extension EndpointProtocol {
         guard let encoder = encoder,
               let parameters = parameters
         else {
-            throw NetworkError.encodingFailed
+            throw ParameterEncoderError.encodingFailed
         }
         
         do {
             urlRequest = try encoder.encode(urlRequest,
                                             with: parameters)
         } catch {
-            throw NetworkError.encodingFailed
+            throw ParameterEncoderError.encodingFailed
         }
         
         return urlRequest
