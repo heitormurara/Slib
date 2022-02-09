@@ -1,6 +1,6 @@
 import Foundation
 
-protocol Endpoint: AnyObject {
+protocol EndpointProtocol {
     
     var baseURL: URL { get }
     var path: String { get }
@@ -12,7 +12,7 @@ protocol Endpoint: AnyObject {
     func asURLRequest() throws -> URLRequest
 }
 
-extension Endpoint {
+extension EndpointProtocol {
     
     func asURLRequest() throws -> URLRequest {
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path),
