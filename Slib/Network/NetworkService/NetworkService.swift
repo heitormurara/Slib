@@ -6,15 +6,17 @@ typealias NetworkServiceCompletion = (_ data: Data?,
 
 protocol NetworkServiceProtocol: AnyObject {
     
-    func request(_ endpoint: EndpointProtocol,
+    associatedtype Endpoint: EndpointProtocol
+    
+    func request(_ endpoint: Endpoint,
                  completion: @escaping NetworkServiceCompletion)
 }
 
-final class NetworkService: NetworkServiceProtocol {
+final class NetworkService<Endpoint: EndpointProtocol>: NetworkServiceProtocol {
     
     private var urlSessionTask: URLSessionTask?
     
-    func request(_ endpoint: EndpointProtocol,
+    func request(_ endpoint: Endpoint,
                  completion: @escaping NetworkServiceCompletion) {
         let session = URLSession.shared
         

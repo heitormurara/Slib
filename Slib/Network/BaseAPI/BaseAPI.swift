@@ -1,25 +1,27 @@
 import Foundation
 
-protocol BaseAPIProtocol {
+protocol BaseAPIProtocol where Service: NetworkServiceProtocol {
     
     associatedtype Service = NetworkServiceProtocol
     
     var service: Service { get }
     
-    func request<ResponseModel: Decodable>(_ endpoint: EndpointProtocol,
-                                completion: @escaping (Result<ResponseModel, BaseAPIError>) -> Void)
+    func request<T: Decodable>(_ endpoint: Service.Endpoint,
+                               _ responseType: T.Type,
+                               completion: @escaping (Result<T, BaseAPIError>) -> Void)
 }
 
 class BaseAPI<Service: NetworkServiceProtocol>: BaseAPIProtocol {
     
     let service: Service
     
-    required init(service: Service) {
+    init(service: Service) {
         self.service = service
     }
     
-    func request<ResponseModel: Decodable>(_ endpoint: EndpointProtocol,
-                                completion: @escaping (Result<ResponseModel, BaseAPIError>) -> Void) {
+    func request<T: Decodable>(_ endpoint: Service.Endpoint,
+                               _ responseType: T.Type,
+                               completion: @escaping (Result<T, BaseAPIError>) -> Void) {
         service.request(endpoint) { data, urlResponse, error in
             guard let httpURLResponse = urlResponse as? HTTPURLResponse,
                   let responseType = httpURLResponse.status?.responseType
@@ -33,7 +35,7 @@ class BaseAPI<Service: NetworkServiceProtocol>: BaseAPIProtocol {
                 guard let data = data else { return }
                 
                 do {
-                    let responseModel = try JSONDecoder().decode(ResponseModel.self,
+                    let responseModel = try JSONDecoder().decode(T.self,
                                                                  from: data)
                     completion(.success(responseModel))
                 } catch _ as DecodingError {
