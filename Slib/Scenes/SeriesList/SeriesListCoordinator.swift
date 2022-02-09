@@ -4,21 +4,21 @@ protocol SeriesListCoordinatorDelegate: AnyObject {}
 
 final class SeriesListCoordinator: Coordinator {
     
+    private let window: UIWindow
+    
     var childCoordinators: [Coordinator] = []
     weak var delegate: SeriesListCoordinatorDelegate?
     
-    private let navigationController: UINavigationController
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(window: UIWindow) {
+        self.window = window
     }
     
     func start() {
         let viewController = SeriesListViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
         let presenter = SeriesListPresenter(viewController: viewController)
         viewController.presenter = presenter
         
-        navigationController.pushViewController(viewController,
-                                                animated: true)
+        window.rootViewController = navigationController
     }
 }

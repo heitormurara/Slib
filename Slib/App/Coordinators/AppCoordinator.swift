@@ -7,10 +7,6 @@ final class AppCoordinator: Coordinator {
     private var window: UIWindow
     private let windowScene: UIWindowScene
     
-    private lazy var rootViewController: UINavigationController = {
-        UINavigationController(rootViewController: UIViewController())
-    }()
-    
     init(window: UIWindow,
          windowScene: UIWindowScene) {
         self.window = window
@@ -19,16 +15,13 @@ final class AppCoordinator: Coordinator {
     
     func start() {
         window.windowScene = windowScene
-        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
         
         showSeriesList()
     }
     
     private func showSeriesList() {
-        guard let navigationController = window.rootViewController as? UINavigationController else { return }
-        
-        let coordinator = SeriesListCoordinator(navigationController: navigationController)
+        let coordinator = SeriesListCoordinator(window: window)
         coordinator.delegate = self
         addChildCoordinator(coordinator)
         coordinator.start()
