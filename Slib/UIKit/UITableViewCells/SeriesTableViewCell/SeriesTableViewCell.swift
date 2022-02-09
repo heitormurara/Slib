@@ -20,6 +20,10 @@ final class SeriesTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func set(_ model: SeriesTableViewCellModel) {
+        titleLabel.text = model.title
+    }
+    
     private func setUpStyle() {
         backgroundColor = Colors.clear
     }

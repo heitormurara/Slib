@@ -14,8 +14,10 @@ final class SeriesListCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = SeriesListViewModel()
-        let viewController = SeriesListViewController(viewModel: viewModel)
+        let viewController = SeriesListViewController()
+        let presenter = SeriesListPresenter(viewController: viewController)
+        viewController.presenter = presenter
+        
         navigationController.pushViewController(viewController,
                                                 animated: true)
     }
