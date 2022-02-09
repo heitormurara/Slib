@@ -40,20 +40,13 @@ final class SeriesListViewController: UIViewController {
     
     var presenter: SeriesListPresenterProtocol?
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpStyle()
         setUpConstraints()
         presenter?.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        
+        navigationItem.title = "Slib"
     }
     
     private func setUpStyle() {
