@@ -57,7 +57,7 @@ final class SeriesListPresenter {
         
         seriesAPI.getSeries(page: currentPage) { [weak self] seriesListResult in
             guard let self = self else { return }
-            self.currentStatus = .loadingFinished
+            defer { self.currentStatus = .loadingFinished }
             
             DispatchQueue.main.async {
                 self.viewController.displayActivityIndicator(false)
@@ -79,7 +79,7 @@ final class SeriesListPresenter {
         
         seriesAPI.searchSeries(string: searchString) { [weak self] seriesListResult in
             guard let self = self else { return }
-            self.currentStatus = .searchingFinished
+            defer { self.currentStatus = .searchingFinished }
             
             switch seriesListResult {
             case let .success(seriesSearchList):
