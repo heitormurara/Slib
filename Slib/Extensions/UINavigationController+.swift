@@ -8,6 +8,9 @@ extension UINavigationController {
         navigationBar.largeTitleTextAttributes = textAttributes
         navigationBar.titleTextAttributes = textAttributes
         commonConfigure()
+        navigationBar.setBackgroundImage(nil,
+                                         for: .default)
+        navigationBar.shadowImage = nil
     }
     
     func configureSmallNavigationBar() {
