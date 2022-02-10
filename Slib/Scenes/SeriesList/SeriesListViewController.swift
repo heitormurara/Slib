@@ -23,6 +23,16 @@ final class SeriesListViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Series"
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        return searchController
+    }()
+    
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
         activityIndicatorView.startAnimating()
@@ -47,6 +57,7 @@ final class SeriesListViewController: UIViewController {
         presenter?.viewDidLoad()
         
         navigationItem.title = "Slib"
+        _ = searchController
     }
     
     private func setUpStyle() {
@@ -115,5 +126,14 @@ extension SeriesListViewController: UITableViewDataSource {
         
         cell.set(model)
         return cell
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension SeriesListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchString = searchBar.text else { return }
+        presenter?.searchBarSearchButtonClicked(searchString)
     }
 }

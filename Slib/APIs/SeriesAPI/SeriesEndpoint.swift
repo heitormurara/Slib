@@ -3,6 +3,7 @@ import Foundation
 enum SeriesEndpoint {
     
     case get(page: Int)
+    case search(_ string: String)
 }
 
 // MARK: - Endpoint
@@ -13,7 +14,12 @@ extension SeriesEndpoint: EndpointProtocol {
     }
     
     var path: String {
-        "/shows"
+        switch self {
+        case .get:
+            return "/shows"
+        case .search:
+            return "/search/shows"
+        }
     }
     
     var method: HTTPMethod {
@@ -28,12 +34,15 @@ extension SeriesEndpoint: EndpointProtocol {
         switch self {
         case let .get(page):
             return ["page": page]
+        case let .search(string):
+            return ["q": string]
         }
     }
     
     var encoder: ParameterEncoder? {
         switch self {
-        case .get:
+        case .get,
+             .search:
             return URLParameterEncoder()
         }
     }

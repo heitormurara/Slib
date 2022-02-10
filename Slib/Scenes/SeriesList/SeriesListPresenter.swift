@@ -5,6 +5,7 @@ protocol SeriesListPresenterProtocol: AnyObject {
     var tableViewDataSource: [SeriesTableViewCellModel] { get }
     func viewDidLoad()
     func viewDidReachScrollLimit()
+    func searchBarSearchButtonClicked(_ searchString: String)
 }
 
 protocol SeriesListPresenterDelegate: AnyObject {
@@ -26,8 +27,16 @@ final class SeriesListPresenter {
         }
     }
     
+    private var seriesSearchList: [Series] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.viewController.reloadTableView()
+            }
+        }
+    }
+    
     private var currentPage: Int = .zero
-    private var isLoadingSeries = false
+    private var currentStatus: SeriesListPresenterStatus = .none
     
     init(viewController: SeriesListViewControllerProtocol,
          seriesAPI: SeriesAPIProtocol = SeriesAPI()) {
@@ -36,15 +45,16 @@ final class SeriesListPresenter {
     }
     
     private func loadSeries() {
-        guard !isLoadingSeries else { return }
-        isLoadingSeries = true
+        guard currentStatus != .loading else { return }
+        currentStatus = .loading
         DispatchQueue.main.async { [weak self] in
             self?.viewController.displayActivityIndicator(true)
         }
         
         seriesAPI.getSeries(page: currentPage) { [weak self] seriesListResult in
             guard let self = self else { return }
-            self.isLoadingSeries = false
+            self.currentStatus = .none
+            
             DispatchQueue.main.async {
                 self.viewController.displayActivityIndicator(false)
             }
@@ -53,10 +63,23 @@ final class SeriesListPresenter {
             case let .success(newSeriesList):
                 self.seriesList.append(contentsOf: newSeriesList)
                 self.currentPage += 1
-                
-                DispatchQueue.main.async {
-                    self.viewController.reloadTableView()
-                }
+            case .failure:
+                break
+            }
+        }
+    }
+    
+    private func searchSeries(_ searchString: String) {
+        guard currentStatus != .searching else { return }
+        currentStatus = .searching
+        
+        seriesAPI.searchSeries(string: searchString) { [weak self] seriesListResult in
+            guard let self = self else { return }
+            self.currentStatus = .none
+            
+            switch seriesListResult {
+            case let .success(seriesSearchList):
+                self.seriesSearchList = seriesSearchList
             case .failure:
                 break
             }
@@ -81,5 +104,9 @@ extension SeriesListPresenter: SeriesListPresenterProtocol {
     
     func viewDidReachScrollLimit() {
         loadSeries()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchString: String) {
+        searchSeries(searchString)
     }
 }
