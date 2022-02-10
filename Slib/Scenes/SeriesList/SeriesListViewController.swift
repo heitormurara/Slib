@@ -78,19 +78,6 @@ final class SeriesListViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
-extension SeriesListViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView,
-                   willDisplay cell: UITableViewCell,
-                   forRowAt indexPath: IndexPath) {
-        let lastRowIndex = tableView.numberOfRows(inSection: .zero) - 1
-        if indexPath.row == lastRowIndex {
-            presenter?.viewDidReachScrollLimit()
-        }
-    }
-}
-
 // MARK: - SeriesListViewControllerProtocol
 extension SeriesListViewController: SeriesListViewControllerProtocol {
     
@@ -105,6 +92,24 @@ extension SeriesListViewController: SeriesListViewControllerProtocol {
         case false:
             tableView.tableFooterView = nil
         }
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension SeriesListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        let lastRowIndex = tableView.numberOfRows(inSection: .zero) - 1
+        if indexPath.row == lastRowIndex {
+            presenter?.viewDidReachScrollLimit()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        presenter?.tableViewDidSelectRowAt(indexPath)
     }
 }
 

@@ -35,6 +35,7 @@ final class SeriesTableViewCell: UITableViewCell {
     
     private func setUpStyle() {
         backgroundColor = Colors.clear
+        selectionStyle = .none
     }
     
     private func setUpSubviews() {

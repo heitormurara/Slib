@@ -7,10 +7,12 @@ protocol SeriesListPresenterProtocol: AnyObject {
     func viewDidReachScrollLimit()
     func searchBarSearchButtonClicked(_ searchString: String)
     func searchBarCancelButtonClicked()
+    func tableViewDidSelectRowAt(_ indexPath: IndexPath)
 }
 
 protocol SeriesListPresenterDelegate: AnyObject {
     
+    func didSelectSeries(_ series: Series)
 }
 
 final class SeriesListPresenter {
@@ -34,6 +36,20 @@ final class SeriesListPresenter {
                 self?.viewController.reloadTableView()
             }
         }
+    }
+    
+    private var currentSeriesList: [Series] {
+        var seriesList: [Series] = []
+        
+        switch currentStatus {
+        case .loadingFinished, .searchingCanceled:
+            seriesList = self.seriesList
+        case .searchingFinished:
+            seriesList = seriesSearchList
+        default: break
+        }
+        
+        return seriesList
     }
     
     private var currentPage: Int = .zero
@@ -95,23 +111,11 @@ final class SeriesListPresenter {
 extension SeriesListPresenter: SeriesListPresenterProtocol {
     
     var tableViewDataSource: [SeriesTableViewCellModel] {
-        var seriesList: [Series] = []
-        
-        switch currentStatus {
-        case .loadingFinished, .searchingCanceled:
-            seriesList = self.seriesList
-        case .searchingFinished:
-            seriesList = seriesSearchList
-        default: break
-        }
-        
-        let seriesTableViewCellModelList = seriesList.compactMap {
+        currentSeriesList.compactMap {
             SeriesTableViewCellModel(bannerImageURL: $0.image.originalSizeURL,
                                      title: $0.name,
                                      genres: $0.genres)
         }
-        
-        return seriesTableViewCellModelList
     }
     
     func viewDidLoad() {
@@ -132,5 +136,13 @@ extension SeriesListPresenter: SeriesListPresenterProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.viewController.reloadTableView()
         }
+    }
+    
+    func tableViewDidSelectRowAt(_ indexPath: IndexPath) {
+        let index = indexPath.row
+        guard tableViewDataSource.count >= index else { return }
+        
+        let series = currentSeriesList[index]
+        delegate?.didSelectSeries(series)
     }
 }

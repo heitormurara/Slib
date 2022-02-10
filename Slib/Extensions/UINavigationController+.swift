@@ -8,6 +8,7 @@ extension UINavigationController {
         navigationBar.largeTitleTextAttributes = textAttributes
         navigationBar.titleTextAttributes = textAttributes
         navigationBar.barTintColor = Colors.backgroundSystem
+        navigationBar.tintColor = Colors.primaryText
         navigationBar.barStyle = .black
     }
 }
