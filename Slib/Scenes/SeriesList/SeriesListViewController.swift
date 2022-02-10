@@ -11,6 +11,7 @@ final class SeriesListViewController: UIViewController {
     private struct Constants {
         
         static let activityIndicatorViewHeight: CGFloat = 44
+        static let rowHeightViewBoundsMultiplier: CGFloat = 0.2
     }
     
     private lazy var tableView: UITableView = {
@@ -20,6 +21,7 @@ final class SeriesListViewController: UIViewController {
         tableView.register(SeriesTableViewCell.self,
                            forCellReuseIdentifier: SeriesTableViewCell.reuseIdentifier)
         tableView.backgroundColor = Colors.clear
+        tableView.rowHeight = view.bounds.height * Constants.rowHeightViewBoundsMultiplier
         return tableView
     }()
     

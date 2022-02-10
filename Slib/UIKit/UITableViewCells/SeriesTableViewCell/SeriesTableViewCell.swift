@@ -48,24 +48,23 @@ final class SeriesTableViewCell: UITableViewCell {
             $0.top.equalToSuperview()
                 .offset(Spacings.m)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(Constants.bannerImageHeight)
-            $0.width.equalTo(Constants.bannerImageWidth)
+            $0.width.equalTo(bannerImageView.snp.height)
+                .multipliedBy(0.7)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(bannerImageView.snp_trailingMargin)
+            $0.leading.equalTo(bannerImageView.snp.trailing)
                 .offset(Spacings.m)
             $0.centerY.equalTo(bannerImageView)
             $0.trailing.equalToSuperview()
-                .offset(Spacings.m)
+                .offset(-Spacings.m)
         }
         
         genresLabel.snp.makeConstraints {
             $0.leading.equalTo(titleLabel)
             $0.trailing.equalTo(titleLabel)
-            $0.top.equalTo(titleLabel.snp_bottomMargin)
-                .offset(Spacings.s)
-            $0.bottom.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom)
+                .offset(Spacings.ss)
         }
     }
 }

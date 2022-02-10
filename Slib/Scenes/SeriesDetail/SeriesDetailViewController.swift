@@ -66,7 +66,7 @@ final class SeriesDetailViewController: UIViewController {
             $0.top.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
-            $0.width.equalToSuperview()
+            $0.width.equalTo(view.snp.width)
         }
         
         bannerImageView.snp.makeConstraints {
@@ -80,7 +80,7 @@ final class SeriesDetailViewController: UIViewController {
                 .offset(Spacings.m)
             $0.trailing.equalToSuperview()
                 .offset(-Spacings.m)
-            $0.top.equalTo(bannerImageView.snp_bottomMargin)
+            $0.top.equalTo(bannerImageView.snp.bottom)
                 .offset(Spacings.g)
         }
         
@@ -90,7 +90,7 @@ final class SeriesDetailViewController: UIViewController {
                 .offset(Spacings.m)
             $0.trailing.equalToSuperview()
                 .offset(-Spacings.m)
-            $0.top.equalTo(titleLabel.snp_bottomMargin)
+            $0.top.equalTo(titleLabel.snp.bottom)
                 .offset(Spacings.s)
         }
         
@@ -99,7 +99,7 @@ final class SeriesDetailViewController: UIViewController {
                 .offset(Spacings.m)
             $0.trailing.equalToSuperview()
                 .offset(-Spacings.m)
-            $0.top.equalTo(genresLabel.snp_bottomMargin)
+            $0.top.equalTo(genresLabel.snp.bottom)
                 .offset(Spacings.g)
         }
         
@@ -108,7 +108,7 @@ final class SeriesDetailViewController: UIViewController {
                 .offset(Spacings.m)
             $0.trailing.equalToSuperview()
                 .offset(-Spacings.m)
-            $0.top.equalTo(summaryLabelTitle.snp_bottomMargin)
+            $0.top.equalTo(summaryLabelTitle.snp.bottom)
                 .offset(Spacings.m)
             $0.bottom.equalToSuperview()
                 .offset(-Spacings.g)
