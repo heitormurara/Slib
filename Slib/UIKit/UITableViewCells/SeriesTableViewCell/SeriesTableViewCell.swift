@@ -6,8 +6,7 @@ final class SeriesTableViewCell: UITableViewCell {
     
     private struct Constants {
         
-        static let bannerImageHeight: CGFloat = 295 / 2
-        static let bannerImageWidth: CGFloat = 210 / 2
+        static let bannerImageViewWidthMultiplier: CGFloat = 0.7
     }
     
     private let bannerImageView = UIImageView(style: .rounded)
@@ -49,7 +48,7 @@ final class SeriesTableViewCell: UITableViewCell {
                 .offset(Spacings.m)
             $0.bottom.equalToSuperview()
             $0.width.equalTo(bannerImageView.snp.height)
-                .multipliedBy(0.7)
+                .multipliedBy(Constants.bannerImageViewWidthMultiplier)
         }
         
         titleLabel.snp.makeConstraints {
