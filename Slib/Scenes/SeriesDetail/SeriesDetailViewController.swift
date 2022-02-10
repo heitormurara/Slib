@@ -15,8 +15,6 @@ final class SeriesDetailViewController: UIViewController {
     
     private let titleLabel = UILabel(styles: .largeTitle, .center)
     
-//    private let scheduleLabel = UILabel(style: .secondaryText)
-    
     private let genresLabel = UILabel(styles: .tertiaryText, .center)
     
     private let summaryLabelTitle = UILabel(style: .title)
@@ -164,5 +162,11 @@ extension SeriesDetailViewController: UITableViewDataSource {
         
         cell.set(name: "\(episode.id) - \(episode.name)")
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   titleForHeaderInSection section: Int) -> String? {
+        guard let season = presenter?.seasonEpisodes[section]?.first?.season else { return nil }
+        return "Season \(season)"
     }
 }
