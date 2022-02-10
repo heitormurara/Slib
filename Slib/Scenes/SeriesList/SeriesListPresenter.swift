@@ -6,6 +6,7 @@ protocol SeriesListPresenterProtocol: AnyObject {
     func viewDidLoad()
     func viewDidReachScrollLimit()
     func searchBarSearchButtonClicked(_ searchString: String)
+    func searchBarCancelButtonClicked()
 }
 
 protocol SeriesListPresenterDelegate: AnyObject {
@@ -97,7 +98,7 @@ extension SeriesListPresenter: SeriesListPresenterProtocol {
         var seriesList: [Series] = []
         
         switch currentStatus {
-        case .loadingFinished:
+        case .loadingFinished, .searchingCanceled:
             seriesList = self.seriesList
         case .searchingFinished:
             seriesList = seriesSearchList
@@ -123,5 +124,13 @@ extension SeriesListPresenter: SeriesListPresenterProtocol {
     
     func searchBarSearchButtonClicked(_ searchString: String) {
         searchSeries(searchString)
+    }
+    
+    func searchBarCancelButtonClicked() {
+        currentStatus = .searchingCanceled
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.viewController.reloadTableView()
+        }
     }
 }

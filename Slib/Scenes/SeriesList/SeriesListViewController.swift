@@ -136,4 +136,8 @@ extension SeriesListViewController: UISearchBarDelegate {
         guard let searchString = searchBar.text else { return }
         presenter?.searchBarSearchButtonClicked(searchString)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.searchBarCancelButtonClicked()
+    }
 }
