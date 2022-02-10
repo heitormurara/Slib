@@ -4,6 +4,7 @@ enum SeriesEndpoint {
     
     case get(page: Int)
     case search(_ string: String)
+    case getSeasonsFrom(_ series: Series)
 }
 
 // MARK: - Endpoint
@@ -19,6 +20,8 @@ extension SeriesEndpoint: EndpointProtocol {
             return "/shows"
         case .search:
             return "/search/shows"
+        case let .getSeasonsFrom(series):
+            return "/shows/\(series.id)/seasons"
         }
     }
     
@@ -36,6 +39,8 @@ extension SeriesEndpoint: EndpointProtocol {
             return ["page": page]
         case let .search(string):
             return ["q": string]
+        default:
+            return nil
         }
     }
     
@@ -44,6 +49,8 @@ extension SeriesEndpoint: EndpointProtocol {
         case .get,
              .search:
             return URLParameterEncoder()
+        default:
+            return nil
         }
     }
 }

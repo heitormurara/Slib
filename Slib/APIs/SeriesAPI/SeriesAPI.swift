@@ -1,12 +1,17 @@
 typealias SeriesListResult = Result<[Series], BaseAPIError>
 typealias SeriesListCompletion = (SeriesListResult) -> Void
 
+typealias SeasonListResult = Result<[Season], BaseAPIError>
+typealias SeasonListCompletino = (SeasonListResult) -> Void
+
 protocol SeriesAPIProtocol: AnyObject {
     
     func getSeries(page: Int,
                    _ completion: @escaping SeriesListCompletion)
     func searchSeries(string: String,
                       _ completion: @escaping SeriesListCompletion)
+    func getSeasons(from series: Series,
+             _ completion: @escaping SeasonListCompletino)
 }
 
 final class SeriesAPI: BaseAPI<NetworkService<SeriesEndpoint>> {
@@ -38,5 +43,12 @@ extension SeriesAPI: SeriesAPIProtocol {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func getSeasons(from series: Series,
+             _ completion: @escaping SeasonListCompletino) {
+        request(.getSeasonsFrom(series),
+                [Season].self,
+                completion: completion)
     }
 }
