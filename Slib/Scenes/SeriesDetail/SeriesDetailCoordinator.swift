@@ -18,7 +18,8 @@ final class SeriesDetailCoordinator: Coordinator {
     
     func start() {
         let viewController = SeriesDetailViewController()
-        let presenter = SeriesDetailPresenter(viewController: viewController)
+        let presenter = SeriesDetailPresenter(viewController: viewController,
+                                              series: series)
         viewController.presenter = presenter
 //        presenter.delegate = self
         

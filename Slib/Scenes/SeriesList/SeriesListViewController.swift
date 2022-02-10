@@ -60,6 +60,11 @@ final class SeriesListViewController: UIViewController {
         _ = searchController
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.configureLargeNavigationBar()
+    }
+    
     private func setUpStyle() {
         view.backgroundColor = Colors.backgroundSystem
     }

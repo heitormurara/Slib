@@ -16,7 +16,6 @@ final class SeriesListCoordinator: Coordinator {
     func start() {
         let viewController = SeriesListViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.configure()
         let presenter = SeriesListPresenter(viewController: viewController)
         viewController.presenter = presenter
         presenter.delegate = self
