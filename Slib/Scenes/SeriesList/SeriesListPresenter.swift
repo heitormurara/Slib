@@ -45,15 +45,18 @@ final class SeriesListPresenter {
     }
     
     private func loadSeries() {
-        guard currentStatus != .loading else { return }
+        guard currentStatus != .loading,
+              currentStatus != .searchingFinished
+        else { return }
         currentStatus = .loading
+        
         DispatchQueue.main.async { [weak self] in
             self?.viewController.displayActivityIndicator(true)
         }
         
         seriesAPI.getSeries(page: currentPage) { [weak self] seriesListResult in
             guard let self = self else { return }
-            self.currentStatus = .none
+            self.currentStatus = .loadingFinished
             
             DispatchQueue.main.async {
                 self.viewController.displayActivityIndicator(false)
@@ -75,7 +78,7 @@ final class SeriesListPresenter {
         
         seriesAPI.searchSeries(string: searchString) { [weak self] seriesListResult in
             guard let self = self else { return }
-            self.currentStatus = .none
+            self.currentStatus = .searchingFinished
             
             switch seriesListResult {
             case let .success(seriesSearchList):
@@ -91,11 +94,23 @@ final class SeriesListPresenter {
 extension SeriesListPresenter: SeriesListPresenterProtocol {
     
     var tableViewDataSource: [SeriesTableViewCellModel] {
-        seriesList.compactMap {
+        var seriesList: [Series] = []
+        
+        switch currentStatus {
+        case .loadingFinished:
+            seriesList = self.seriesList
+        case .searchingFinished:
+            seriesList = seriesSearchList
+        default: break
+        }
+        
+        let seriesTableViewCellModelList = seriesList.compactMap {
             SeriesTableViewCellModel(bannerImageURL: $0.image.originalSizeURL,
                                      title: $0.name,
                                      genres: $0.genres)
         }
+        
+        return seriesTableViewCellModelList
     }
     
     func viewDidLoad() {
